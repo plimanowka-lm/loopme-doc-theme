@@ -22,17 +22,17 @@ jobs:
       - name: Bundle documentation theme
         run: npm run bundle
       - name: Change bundle name
-        run: mv build/ui-bundle.zip build/bonita-documentation-theme-${{ env.RELEASE_VERSION }}.zip
+        run: mv build/ui-bundle.zip build/loopme-doc-theme-${{ env.RELEASE_VERSION }}.zip
       - name: Create release
         uses: ncipollo/release-action@v1
         with:
           generateReleaseNotes: true
           artifacts: "build/bonita-documentation-theme-${{ env.RELEASE_VERSION }}.zip"
           token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Repository Dispatch
-        uses: peter-evans/repository-dispatch@v2
-        with:
-          token: ${{ secrets.GH_TOKEN_DOC_TRIGGER_WF }}
-          repository: bonitasoft/bonita-documentation-site
-          event-type: new_theme_bundle
-          client-payload: '{"release": "${{ env.RELEASE_VERSION }}", "release_notes_url": "${{ env.REPO_URL }}/releases/tag/${{ env.RELEASE_VERSION }}", "bundle_file": "bonita-documentation-theme-${{ env.RELEASE_VERSION }}.zip", "bundle_url": "${{ env.REPO_URL }}/releases/download/${{ env.RELEASE_VERSION }}/bonita-documentation-theme-${{ env.RELEASE_VERSION }}.zip"}'
+#      - name: Repository Dispatch
+#        uses: peter-evans/repository-dispatch@v2
+#        with:
+#          token: ${{ secrets.GH_TOKEN_DOC_TRIGGER_WF }}
+#          repository: bonitasoft/bonita-documentation-site
+#          event-type: new_theme_bundle
+#          client-payload: '{"release": "${{ env.RELEASE_VERSION }}", "release_notes_url": "${{ env.REPO_URL }}/releases/tag/${{ env.RELEASE_VERSION }}", "bundle_file": "bonita-documentation-theme-${{ env.RELEASE_VERSION }}.zip", "bundle_url": "${{ env.REPO_URL }}/releases/download/${{ env.RELEASE_VERSION }}/bonita-documentation-theme-${{ env.RELEASE_VERSION }}.zip"}'
